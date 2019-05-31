@@ -13,22 +13,22 @@ import org.cheeseburger.gpacalculator.beans.UserAccount;
 public class DBUtils {
 
 	public static UserAccount findUser(Connection conn, //
-			String userName, String password, String school) throws SQLException {
+			String userName, String password) throws SQLException {
 
-		String sql = "Select a.User_Name, a.Password, a.Gender from User_Account a " //
+		String sql = "Select a.User_Name, a.Password from User_Account a " //
 				+ " where a.User_Name = ? and a.password= ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, userName);
 		pstm.setString(2, password);
-		pstm.setString(3, school);
+//		pstm.setString(3, school);
 		ResultSet rs = pstm.executeQuery();
 
 		if (rs.next()) {
 			UserAccount user = new UserAccount();
 			user.setUserName(userName);
 			user.setPassword(password);
-			user.setSchool(school);
+//			user.setSchool(school);
 			return user;
 		}
 		return null;
@@ -46,11 +46,11 @@ public class DBUtils {
 
 		if (rs.next()) {
 			String password = rs.getString("Password");
-			String gender = rs.getString("Gender");
+			String school = rs.getString("School");
 			UserAccount user = new UserAccount();
 			user.setUserName(userName);
 			user.setPassword(password);
-			user.setGender(gender);
+			user.setSchool(school);
 			return user;
 		}
 		return null;

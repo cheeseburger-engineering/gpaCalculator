@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>User Info</title>
  </head>
+ 
  <body>
  
     <jsp:include page="_header.jsp"></jsp:include>
@@ -15,7 +16,7 @@
  
     User Name: <b>${user.userName}</b>
     <br />
-    Gender: ${user.gender } <br />
+    School: ${user.school } <br />
  
  </body>
 </html>

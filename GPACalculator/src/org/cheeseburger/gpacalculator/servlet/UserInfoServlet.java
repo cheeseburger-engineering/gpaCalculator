@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.cheeseburger.gpacalculator.beans.UserAccount;
 import org.cheeseburger.gpacalculator.utils.MyUtils;
  
-@WebServlet(urlPatterns = { "/userInfo" })
+@WebServlet(urlPatterns = { "/accountInfo" })
 public class UserInfoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
@@ -41,7 +41,7 @@ public class UserInfoServlet extends HttpServlet {
         // If the user has logged in, then forward to the page
         // /WEB-INF/views/userInfoView.jsp
         RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
+                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/accountInfoView.jsp");
         dispatcher.forward(request, response);
  
     }
