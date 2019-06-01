@@ -14,10 +14,10 @@ import org.cheeseburger.gpacalculator.beans.UserAccount;
 import org.cheeseburger.gpacalculator.utils.MyUtils;
  
 @WebServlet(urlPatterns = { "/accountInfo" })
-public class UserInfoServlet extends HttpServlet {
+public class AccountInfoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
-    public UserInfoServlet() {
+    public AccountInfoServlet() {
         super();
     }
  

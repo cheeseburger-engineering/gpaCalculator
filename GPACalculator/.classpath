@@ -13,8 +13,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/cttsc/eclipse-workspace/Jars/ojdbc6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cttsc/eclipse-workspace/Jars/javax.servlet.jsp.jstl-1.2.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/cttsc/eclipse-workspace/Jars/javax.servlet.jsp.jstl-api-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Git/Jars/javax.servlet.jsp.jstl-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Git/Jars/javax.servlet.jsp.jstl-api-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Git/Jars/ojdbc6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -26,10 +26,6 @@
             	<td><input type="text" name="password" value= "${user.password}" /> </td>
             </tr>
             <tr>
-            	<td>Remember me</td>
-            	<td><input type="checkbox" name="rememberMe" value= "Y" /> </td>
-            </tr>
-            <tr>
             	<td colspan ="2">
             		<input type="submit" value= "Submit" />
             		<a href="${pageContext.request.contextPath}/">Cancel</a>

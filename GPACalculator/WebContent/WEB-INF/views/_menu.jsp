@@ -8,6 +8,13 @@
 	|
 	<a href="${pageContext.request.contextPath}/accountInfo">Account Information</a>
 	|
-	<a href="${pageContext.request.contextPath}/login">Login</a>
+	<!-- Conditionally display Sign In or Sign Out -->
+	<a href="${pageContext.request.contextPath}/login">
+		<% if(org.cheeseburger.gpacalculator.utils.MyUtils.getLoginedUser(session) == null){ %>
+			Login
+		<% } else { %>
+			Logout
+		<% } %>
+	</a>
     
 </div>  
