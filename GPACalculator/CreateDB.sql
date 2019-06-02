@@ -31,10 +31,10 @@ insert into user_account (USER_NAME, SCHOOL, PASSWORD)
 values ('dan', 'Drexel', 'dan001');
  
 insert into product (CODE, NAME, PRICE)
-values ('P001', 'Java Core', 100);
+values ('4.0', 'Java Core', 3);
  
 insert into product (CODE, NAME, PRICE)
-values ('P002', 'C# Core', 90);
+values ('3.7', 'C# Core', 1);
  
 -- Commit
 Commit;

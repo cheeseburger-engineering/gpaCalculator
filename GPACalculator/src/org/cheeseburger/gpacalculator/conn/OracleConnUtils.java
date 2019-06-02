@@ -2,7 +2,9 @@ package org.cheeseburger.gpacalculator.conn;
  
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
   
 public class OracleConnUtils {
   
@@ -11,9 +13,9 @@ public class OracleConnUtils {
         
        // Note: Change the connection parameters accordingly.
        String hostName = "localhost";
-       String sid = "db12c";
-       String userName = "mytest";
-       String password = "12345";
+       String sid = "127";
+       String userName = "gpauser";
+       String password = "gpapass";
   
        return getOracleConnection(hostName, sid, userName, password);
    }
@@ -24,14 +26,10 @@ public class OracleConnUtils {
    
        Class.forName("oracle.jdbc.driver.OracleDriver");
   
-       // URL Connection for Oracle
-       // Example: 
-       // jdbc:oracle:thin:@localhost:1521:db11g
-       // jdbc:oracle:thin:@//HOSTNAME:PORT/SERVICENAME
-       String connectionURL = "jdbc:oracle:thin:@" + hostName + ":1521:" + sid;
+       String connURL = "jdbc:oracle:thin:@" + hostName + ":1521:" + sid;
   
-       Connection conn = DriverManager.getConnection(connectionURL, userName,
-               password);
+       Connection conn = DriverManager.getConnection(connURL, userName, password);
        return conn;
    }
+   
 }
