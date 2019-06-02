@@ -13,7 +13,7 @@ public class OracleConnUtils {
         
        // Note: Change the connection parameters accordingly.
        String hostName = "localhost";
-       String sid = "127";
+       String sid = "xe";
        String userName = "gpauser";
        String password = "gpapass";
   
