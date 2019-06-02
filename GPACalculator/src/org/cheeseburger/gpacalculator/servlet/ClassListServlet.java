@@ -32,14 +32,14 @@ public class ClassListServlet extends HttpServlet {
         String errorString = null;
         List<Grade> list = null;
         try {
-            list = DBUtils.queryProduct(conn);
+            list = DBUtils.queryGrade(conn);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         // Store info in request attribute, before forward to views
         request.setAttribute("errorString", errorString);
-        request.setAttribute("productList", list);
+        request.setAttribute("gradeList", list);
          
         // Forward to /WEB-INF/views/classListView.jsp
         RequestDispatcher dispatcher = request.getServletContext()

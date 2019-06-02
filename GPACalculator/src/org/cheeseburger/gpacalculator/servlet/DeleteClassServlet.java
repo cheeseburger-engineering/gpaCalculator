@@ -32,7 +32,7 @@ public class DeleteClassServlet extends HttpServlet {
         String errorString = null;
  
         try {
-            DBUtils.deleteProduct(conn, code);
+            DBUtils.deleteGrade(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -48,7 +48,7 @@ public class DeleteClassServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         // If everything nice.
-        // Redirect to the product listing page.        
+        // Redirect to the grade listing page.        
         else {
             response.sendRedirect(request.getContextPath() + "/classList");
         }

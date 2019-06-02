@@ -23,7 +23,7 @@ public class EditClassServlet extends HttpServlet {
         super();
     }
  
-    // Show product edit page.
+    // Show grade edit page.
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,14 +36,14 @@ public class EditClassServlet extends HttpServlet {
         String errorString = null;
  
         try {
-            grade = DBUtils.findProduct(conn, code);
+            grade = DBUtils.findGrade(conn, code);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
  
         // If no error.
-        // The product does not exist to edit.
+        // The class does not exist to edit.
         // Redirect to classList page.
         if (errorString != null && grade == null) {
             response.sendRedirect(request.getServletPath() + "/classList");
@@ -52,7 +52,7 @@ public class EditClassServlet extends HttpServlet {
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", grade);
+        request.setAttribute("grade", grade);
  
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/views/editClassView.jsp");
@@ -80,14 +80,14 @@ public class EditClassServlet extends HttpServlet {
         String errorString = null;
  
         try {
-            DBUtils.updateProduct(conn, grade);
+            DBUtils.updateGrade(conn, grade);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         // Store infomation to request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", grade);
+        request.setAttribute("grade", grade);
  
         // If error, forward to Edit page.
         if (errorString != null) {
@@ -96,7 +96,7 @@ public class EditClassServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         // If everything nice.
-        // Redirect to the product listing page.
+        // Redirect to the class listing page.
         else {
             response.sendRedirect(request.getContextPath() + "/classList");
         }

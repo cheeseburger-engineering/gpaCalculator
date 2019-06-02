@@ -62,7 +62,7 @@ public class AddClassServlet extends HttpServlet {
  
         if (errorString == null) {
             try {
-                DBUtils.insertProduct(conn, grade);
+                DBUtils.insertGrade(conn, grade);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();
@@ -71,7 +71,7 @@ public class AddClassServlet extends HttpServlet {
  
         // Store infomation to request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", grade);
+        request.setAttribute("grade", grade);
  
         // If error, forward to Edit page.
         if (errorString != null) {

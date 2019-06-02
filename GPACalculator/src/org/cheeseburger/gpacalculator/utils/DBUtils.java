@@ -56,8 +56,8 @@ public class DBUtils {
 		return null;
 	}
 
-	public static List<Grade> queryProduct(Connection conn) throws SQLException {
-		String sql = "Select a.Code, a.Name, a.Price from Product a ";
+	public static List<Grade> queryGrade(Connection conn) throws SQLException {
+		String sql = "Select a.Code, a.Name, a.Price from Grade a ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -76,8 +76,8 @@ public class DBUtils {
 		return list;
 	}
 
-	public static Grade findProduct(Connection conn, String code) throws SQLException {
-		String sql = "Select a.Code, a.Name, a.Price from Product a where a.Code=?";
+	public static Grade findGrade(Connection conn, String code) throws SQLException {
+		String sql = "Select a.Code, a.Name, a.Price from Grade a where a.Code=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, code);
@@ -93,8 +93,8 @@ public class DBUtils {
 		return null;
 	}
 
-	public static void updateProduct(Connection conn, Grade grade) throws SQLException {
-		String sql = "Update Product set Name =?, Price=? where Code=? ";
+	public static void updateGrade(Connection conn, Grade grade) throws SQLException {
+		String sql = "Update Grade set Name =?, Price=? where Code=? ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -104,8 +104,8 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 
-	public static void insertProduct(Connection conn, Grade grade) throws SQLException {
-		String sql = "Insert into Product(Code, Name,Price) values (?,?,?)";
+	public static void insertGrade(Connection conn, Grade grade) throws SQLException {
+		String sql = "Insert into Grade(Code, Name,Price) values (?,?,?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -116,8 +116,8 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 
-	public static void deleteProduct(Connection conn, String code) throws SQLException {
-		String sql = "Delete From Product where Code= ?";
+	public static void deleteGrade(Connection conn, String code) throws SQLException {
+		String sql = "Delete From Grade where Code= ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 

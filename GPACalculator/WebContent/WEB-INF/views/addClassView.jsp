@@ -21,15 +21,15 @@
 	<table>
 		<tr>
 			<td>Code</td>
-			<td><input type="text" name="code" value="${product.code}" /></td>
+			<td><input type="text" name="code" value="${grade.code}" /></td>
 		</tr>
            <tr>
            	<td>Name</td>
-           	<td><input type="text" name="name" value="${product.name}" /></td>
+           	<td><input type="text" name="name" value="${grade.name}" /></td>
            </tr>
            <tr>
            	<td>Price</td>
-           	<td><input type="text" name="price" value="${product.price}" /></td>
+           	<td><input type="text" name="price" value="${grade.price}" /></td>
            </tr>
            <tr>
            	<td colspan="2">

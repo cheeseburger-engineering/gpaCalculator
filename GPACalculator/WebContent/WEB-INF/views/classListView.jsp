@@ -5,7 +5,7 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Class and Grade List</title>
  </head>
  <body>
  
@@ -24,16 +24,16 @@
           <th>Edit</th>
           <th>Delete</th>
        </tr>
-       <c:forEach items="${productList}" var="product" >
+       <c:forEach items="${gradeList}" var="grade" >
           <tr>
-             <td>${product.code}</td>
-             <td>${product.name}</td>
-             <td>${product.price}</td>
+             <td>${grade.code}</td>
+             <td>${grade.name}</td>
+             <td>${grade.price}</td>
              <td>
-                <a href="editClass?code=${product.code}">Edit</a>
+                <a href="editClass?code=${grade.code}">Edit</a>
              </td>
              <td>
-                <a href="deleteClass?code=${product.code}">Delete</a>
+                <a href="deleteClass?code=${grade.code}">Delete</a>
              </td>
           </tr>
        </c:forEach>
