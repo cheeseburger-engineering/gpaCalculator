@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-import org.cheeseburger.gpacalculator.conn.ConnectionUtils;
+import org.cheeseburger.gpacalculator.utils.ConnectionUtils;
 import org.cheeseburger.gpacalculator.utils.MyUtils;
  
 @WebFilter(filterName = "encodingFilter", urlPatterns = { "/*" })
