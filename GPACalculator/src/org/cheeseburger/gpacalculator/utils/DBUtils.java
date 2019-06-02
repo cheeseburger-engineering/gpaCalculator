@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cheeseburger.gpacalculator.beans.Product;
+import org.cheeseburger.gpacalculator.beans.Grade;
 import org.cheeseburger.gpacalculator.beans.UserAccount;
 
 public class DBUtils {
@@ -56,27 +56,27 @@ public class DBUtils {
 		return null;
 	}
 
-	public static List<Product> queryProduct(Connection conn) throws SQLException {
+	public static List<Grade> queryProduct(Connection conn) throws SQLException {
 		String sql = "Select a.Code, a.Name, a.Price from Product a ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		ResultSet rs = pstm.executeQuery();
-		List<Product> list = new ArrayList<Product>();
+		List<Grade> list = new ArrayList<Grade>();
 		while (rs.next()) {
 			String code = rs.getString("Code");
 			String name = rs.getString("Name");
 			float price = rs.getFloat("Price");
-			Product product = new Product();
-			product.setCode(code);
-			product.setName(name);
-			product.setPrice(price);
-			list.add(product);
+			Grade grade = new Grade();
+			grade.setCode(code);
+			grade.setName(name);
+			grade.setPrice(price);
+			list.add(grade);
 		}
 		return list;
 	}
 
-	public static Product findProduct(Connection conn, String code) throws SQLException {
+	public static Grade findProduct(Connection conn, String code) throws SQLException {
 		String sql = "Select a.Code, a.Name, a.Price from Product a where a.Code=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -87,31 +87,31 @@ public class DBUtils {
 		while (rs.next()) {
 			String name = rs.getString("Name");
 			float price = rs.getFloat("Price");
-			Product product = new Product(code, name, price);
-			return product;
+			Grade grade = new Grade(code, name, price);
+			return grade;
 		}
 		return null;
 	}
 
-	public static void updateProduct(Connection conn, Product product) throws SQLException {
+	public static void updateProduct(Connection conn, Grade grade) throws SQLException {
 		String sql = "Update Product set Name =?, Price=? where Code=? ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, product.getName());
-		pstm.setFloat(2, product.getPrice());
-		pstm.setString(3, product.getCode());
+		pstm.setString(1, grade.getName());
+		pstm.setFloat(2, grade.getPrice());
+		pstm.setString(3, grade.getCode());
 		pstm.executeUpdate();
 	}
 
-	public static void insertProduct(Connection conn, Product product) throws SQLException {
+	public static void insertProduct(Connection conn, Grade grade) throws SQLException {
 		String sql = "Insert into Product(Code, Name,Price) values (?,?,?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, product.getCode());
-		pstm.setString(2, product.getName());
-		pstm.setFloat(3, product.getPrice());
+		pstm.setString(1, grade.getCode());
+		pstm.setString(2, grade.getName());
+		pstm.setFloat(3, grade.getPrice());
 
 		pstm.executeUpdate();
 	}

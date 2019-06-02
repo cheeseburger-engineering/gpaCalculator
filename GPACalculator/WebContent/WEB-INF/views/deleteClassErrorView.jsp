@@ -17,7 +17,7 @@
     <h3>Delete Product</h3>
     
     <p style="color: red;">${errorString}</p>
-    <a href="productList">Product List</a>
+    <a href="classList">Class and Grade List</a>
     
 </body>
 </html>

@@ -4,7 +4,7 @@
 	
 	<a href="${pageContext.request.contextPath}/">Home</a>
 	|
-	<a href="${pageContext.request.contextPath}/productList">Product List</a>
+	<a href="${pageContext.request.contextPath}/classList">Grade List</a>
 	|
 	<a href="${pageContext.request.contextPath}/accountInfo">Account Information</a>
 	|

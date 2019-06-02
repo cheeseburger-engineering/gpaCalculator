@@ -1,16 +1,16 @@
 package org.cheeseburger.gpacalculator.beans;
 
-public class Product {
+public class Grade {
 
 	private String code;
 	private String name;
 	private float price;
 
-	public Product() {
+	public Grade() {
 
 	}
 
-	public Product(String code, String name, float price) {
+	public Grade(String code, String name, float price) {
 		this.code = code;
 		this.name = name;
 		this.price = price;

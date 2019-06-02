@@ -6,7 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Edit Product</title>
+	<title>Edit Class</title>
 </head>
 
 <body>
@@ -14,11 +14,11 @@
 	<jsp:include page="_header.jsp"></jsp:include>
 	<jsp:include page="_menu.jsp"></jsp:include>
 	
-	<h3>Edit Product</h3>
+	<h3>Edit Class and Grade Information</h3>
 	
 	<p style="color: red;">${errorString}</p>
 		<c:if test="${not empty product}">
-		<form method="POST" action="${pageContext.request.contextPath}/editProduct">
+		<form method="POST" action="${pageContext.request.contextPath}/editClass">
 			<input type="hidden" name="code" value="${product.code}" />
 			<table>
 				<tr>
@@ -36,7 +36,7 @@
 				<tr>
 					<td colspan = "2">
 						<input type="submit" value="Submit" />
-						<a href="${pageContext.request.contextPath}/productList">Cancel</a>
+						<a href="${pageContext.request.contextPath}/classList">Cancel</a>
 					</td>
 				</tr>
 			</table>
