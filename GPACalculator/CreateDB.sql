@@ -8,7 +8,7 @@ primary key (USER_NAME)
 );
  
 -- Create table
-create table PRODUCT
+create table GRADE
 (
 CODE  VARCHAR2(20) not null,
 NAME  VARCHAR2(128) not null,
@@ -30,10 +30,10 @@ values ('matt', 'Drexel', 'mat001');
 insert into user_account (USER_NAME, SCHOOL, PASSWORD)
 values ('dan', 'Drexel', 'dan001');
  
-insert into product (CODE, NAME, PRICE)
+insert into grade (CODE, NAME, PRICE)
 values ('4.0', 'Java Core', 3);
  
-insert into product (CODE, NAME, PRICE)
+insert into grade (CODE, NAME, PRICE)
 values ('3.7', 'C# Core', 1);
  
 -- Commit

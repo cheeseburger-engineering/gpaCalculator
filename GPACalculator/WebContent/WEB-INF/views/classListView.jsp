@@ -5,41 +5,41 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Class and Grade List</title>
  </head>
  <body>
  
     <jsp:include page="_header.jsp"></jsp:include>
     <jsp:include page="_menu.jsp"></jsp:include>
  
-    <h3>Product List</h3>
+    <h3>Class and Grade List</h3>
  
     <p style="color: red;">${errorString}</p>
  
     <table border="1" style="cellpadding:5" style="cellspacing:1" >
        <tr>
           <th>Code</th>
-          <th>Name</th>
-          <th>Price</th>
+          <th>Class Name</th>
+          <th>Grade (on 4.0 scale)</th>
           <th>Edit</th>
           <th>Delete</th>
        </tr>
-       <c:forEach items="${productList}" var="product" >
+       <c:forEach items="${gradeList}" var="grade" >
           <tr>
-             <td>${product.code}</td>
-             <td>${product.name}</td>
-             <td>${product.price}</td>
+             <td>${grade.code}</td>
+             <td>${grade.name}</td>
+             <td>${grade.price}</td>
              <td>
-                <a href="editProduct?code=${product.code}">Edit</a>
+                <a href="editClass?code=${grade.code}">Edit</a>
              </td>
              <td>
-                <a href="deleteProduct?code=${product.code}">Delete</a>
+                <a href="deleteClass?code=${grade.code}">Delete</a>
              </td>
           </tr>
        </c:forEach>
     </table>
  
-    <a href="createProduct" >Create Product</a>
+    <a href="addClass" >Add a class and grade</a>
  
  </body>
 </html>
