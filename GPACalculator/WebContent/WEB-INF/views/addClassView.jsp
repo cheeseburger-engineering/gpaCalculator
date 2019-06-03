@@ -28,8 +28,8 @@
            	<td><input type="text" name="name" value="${grade.name}" /></td>
            </tr>
            <tr>
-           	<td>Price</td>
-           	<td><input type="text" name="price" value="${grade.price}" /></td>
+           	<td>Grade (on 4.0 scale)</td>
+           	<td><input type="text" name="gpa" value="${grade.gpa}" /></td>
            </tr>
            <tr>
            	<td colspan="2">

@@ -42,13 +42,13 @@ public class AddClassServlet extends HttpServlet {
  
         String code = (String) request.getParameter("code");
         String name = (String) request.getParameter("name");
-        String priceStr = (String) request.getParameter("price");
-        float price = 0;
+        String gpaStr = (String) request.getParameter("gpa");
+        float gpa = 0;
         try {
-            price = Float.parseFloat(priceStr);
+        	gpa = Float.parseFloat(gpaStr);
         } catch (Exception e) {
         }
-        Grade grade = new Grade(code, name, price);
+        Grade grade = new Grade(code, name, gpa);
  
         String errorString = null;
  

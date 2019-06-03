@@ -28,7 +28,7 @@
           <tr>
              <td>${grade.code}</td>
              <td>${grade.name}</td>
-             <td>${grade.price}</td>
+             <td>${grade.gpa}</td>
              <td>
                 <a href="editClass?code=${grade.code}">Edit</a>
              </td>
@@ -39,7 +39,7 @@
        </c:forEach>
     </table>
  
-    <a href="addClass" >Add a class and grade</a>
+    <a href="addClass">Add a class and grade</a>
  
  </body>
 </html>

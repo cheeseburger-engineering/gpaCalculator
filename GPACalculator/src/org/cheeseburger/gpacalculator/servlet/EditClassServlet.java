@@ -69,13 +69,13 @@ public class EditClassServlet extends HttpServlet {
  
         String code = (String) request.getParameter("code");
         String name = (String) request.getParameter("name");
-        String priceStr = (String) request.getParameter("price");
-        float price = 0;
+        String gpaStr = (String) request.getParameter("gpa");
+        float gpa = 0;
         try {
-            price = Float.parseFloat(priceStr);
+        	gpa = Float.parseFloat(gpaStr);
         } catch (Exception e) {
         }
-        Grade grade = new Grade(code, name, price);
+        Grade grade = new Grade(code, name, gpa);
  
         String errorString = null;
  
@@ -85,7 +85,7 @@ public class EditClassServlet extends HttpServlet {
             e.printStackTrace();
             errorString = e.getMessage();
         }
-        // Store infomation to request attribute, before forward to views.
+        // Store information to request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
         request.setAttribute("grade", grade);
  

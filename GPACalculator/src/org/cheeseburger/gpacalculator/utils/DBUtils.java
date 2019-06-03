@@ -57,7 +57,7 @@ public class DBUtils {
 	}
 
 	public static List<Grade> queryGrade(Connection conn) throws SQLException {
-		String sql = "Select a.Code, a.Name, a.Price from Grade a ";
+		String sql = "Select a.Code, a.Name, a.Gpa from Grade a ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -66,18 +66,18 @@ public class DBUtils {
 		while (rs.next()) {
 			String code = rs.getString("Code");
 			String name = rs.getString("Name");
-			float price = rs.getFloat("Price");
+			float gpa = rs.getFloat("Gpa");
 			Grade grade = new Grade();
 			grade.setCode(code);
 			grade.setName(name);
-			grade.setPrice(price);
+			grade.setGpa(gpa);
 			list.add(grade);
 		}
 		return list;
 	}
 
 	public static Grade findGrade(Connection conn, String code) throws SQLException {
-		String sql = "Select a.Code, a.Name, a.Price from Grade a where a.Code=?";
+		String sql = "Select a.Code, a.Name, a.Gpa from Grade a where a.Code=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, code);
@@ -86,32 +86,32 @@ public class DBUtils {
 
 		while (rs.next()) {
 			String name = rs.getString("Name");
-			float price = rs.getFloat("Price");
-			Grade grade = new Grade(code, name, price);
+			float gpa = rs.getFloat("Gpa");
+			Grade grade = new Grade(code, name, gpa);
 			return grade;
 		}
 		return null;
 	}
 
 	public static void updateGrade(Connection conn, Grade grade) throws SQLException {
-		String sql = "Update Grade set Name =?, Price=? where Code=? ";
+		String sql = "Update Grade set Name =?, Gpa=? where Code=? ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setString(1, grade.getName());
-		pstm.setFloat(2, grade.getPrice());
+		pstm.setFloat(2, grade.getGpa());
 		pstm.setString(3, grade.getCode());
 		pstm.executeUpdate();
 	}
 
 	public static void insertGrade(Connection conn, Grade grade) throws SQLException {
-		String sql = "Insert into Grade(Code, Name,Price) values (?,?,?)";
+		String sql = "Insert into Grade(Code,Name,Gpa) values (?,?,?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setString(1, grade.getCode());
 		pstm.setString(2, grade.getName());
-		pstm.setFloat(3, grade.getPrice());
+		pstm.setFloat(3, grade.getGpa());
 
 		pstm.executeUpdate();
 	}

@@ -4,16 +4,16 @@ public class Grade {
 
 	private String code;
 	private String name;
-	private float price;
+	private float gpa;
 
 	public Grade() {
 
 	}
 
-	public Grade(String code, String name, float price) {
+	public Grade(String code, String name, float gpa) {
 		this.code = code;
 		this.name = name;
-		this.price = price;
+		this.gpa = gpa;
 	}
 
 	public String getCode() {
@@ -32,12 +32,12 @@ public class Grade {
 		this.name = name;
 	}
 
-	public float getPrice() {
-		return price;
+	public float getGpa() {
+		return gpa;
 	}
 
-	public void setPrice(float price) {
-		this.price = price;
+	public void setGpa(float gpa) {
+		this.gpa = gpa;
 	}
 
 }
