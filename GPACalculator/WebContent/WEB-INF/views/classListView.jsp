@@ -38,7 +38,11 @@
           </tr>
        </c:forEach>
     </table>
- 
+    
+    <br/><br/>
+    <b>Your current GPA is:</b> 
+    
+    <br/><br/>
     <a href="addClass">Add a class and grade</a>
  
  </body>

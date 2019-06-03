@@ -60,6 +60,9 @@ public class DBUtils {
 		String sql = "Select a.Code, a.Name, a.Gpa from Grade a ";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		float gpaSum = 0;
+		float creditSum = 0;
 
 		ResultSet rs = pstm.executeQuery();
 		List<Grade> list = new ArrayList<Grade>();
@@ -67,12 +70,21 @@ public class DBUtils {
 			String code = rs.getString("Code");
 			String name = rs.getString("Name");
 			float gpa = rs.getFloat("Gpa");
+			
+			gpaSum += gpa;
+			creditSum += 1.0;
+			
 			Grade grade = new Grade();
 			grade.setCode(code);
 			grade.setName(name);
 			grade.setGpa(gpa);
 			list.add(grade);
 		}
+		Grade grade = new Grade();
+		grade.setCode("000");
+		grade.setName("Current GPA");
+		grade.setGpa(gpaSum/creditSum);
+		list.add(grade);
 		return list;
 	}
 
