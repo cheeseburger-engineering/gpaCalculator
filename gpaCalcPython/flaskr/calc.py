@@ -24,7 +24,13 @@ def viewClasses():
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchall()
-    return render_template('calc/view.html', posts=posts)
+    avg = get_db().execute(
+        'SELECT AVG(grade)'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    )
+    return render_template('calc/view.html', posts=posts, avg=avg)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -47,7 +53,7 @@ def create():
                 (classname, grade, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('calc.index'))
+            return redirect(url_for('calc.viewClasses'))
 
     return render_template('calc/create.html')
 
@@ -90,7 +96,7 @@ def update(id):
                 (classname, grade, id)
             )
             db.commit()
-            return redirect(url_for('calc.index'))
+            return redirect(url_for('calc.viewClasses'))
 
     return render_template('calc/update.html', post=post)
 
@@ -101,5 +107,5 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM class WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('calc.index'))
+    return redirect(url_for('calc.viewClasses'))
 
