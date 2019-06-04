@@ -53,8 +53,6 @@ def perc2let(grade)
 def let2GPA(letter):
 	return SCORE_MAP[letter]
 	
-
-	
 # Function to calculate weighted GPA contribution for a course
 def weighGPA(course):
 	return let2GPA(course.grade)*course.credits
@@ -67,7 +65,17 @@ def calcTotalGPA(courses):
 	totGPA = totGPA / len(courses)
 	return totGPA
 
-# Functions below are more oriented toward manipulating the data for a use
+# Function to determine grade necessary to maintain GPA
+def getGoal(goal, goalCourse, courses)
+	totGrade = 0
+	totCredits = 0
+	for course in courses:
+		totGrade += course.grade
+		totCredits += course.credits
+	goalGrade = goal * (totCredits + goalCourse.credits) - totGrade
+	return goalGrade
+	
+# Fuctions below are more oriented toward manipulating the data for a use
 # i.e. setting grades, setting course credit values, etc.
 	
 # Function to set grade for course based on input	
