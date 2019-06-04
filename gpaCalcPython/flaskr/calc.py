@@ -19,8 +19,8 @@ def index():
 def viewClasses():
     db = get_db()
     posts = get_db().execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
+        'SELECT p.id, classname, grade, author_id, username'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchall()
@@ -30,21 +30,21 @@ def viewClasses():
 @login_required
 def create():
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
+        classname = request.form['classname']
+        grade = request.form['grade']
         error = None
 
-        if not title:
-            error = 'Title is required.'
+        if not classname:
+            error = 'Class name is required.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO post (title, body, author_id)'
+                'INSERT INTO class (classname, grade, author_id)'
                 ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+                (classname, grade, g.user['id'])
             )
             db.commit()
             return redirect(url_for('calc.index'))
@@ -53,8 +53,8 @@ def create():
 
 def get_post(id, check_author=True):
     post = get_db().execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
+        'SELECT p.id, classname, grade, author_id, username'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
     ).fetchone()
@@ -73,21 +73,21 @@ def update(id):
     post = get_post(id)
 
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
+        classname = request.form['classname']
+        grade = request.form['grade']
         error = None
 
-        if not title:
-            error = 'Title is required.'
+        if not classname:
+            error = 'Class name is required.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'UPDATE post SET title = ?, body = ?'
+                'UPDATE class SET classname = ?, grade = ?'
                 ' WHERE id = ?',
-                (title, body, id)
+                (classname, grade, id)
             )
             db.commit()
             return redirect(url_for('calc.index'))
@@ -99,7 +99,7 @@ def update(id):
 def delete(id):
     get_post(id)
     db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.execute('DELETE FROM class WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('calc.index'))
 
