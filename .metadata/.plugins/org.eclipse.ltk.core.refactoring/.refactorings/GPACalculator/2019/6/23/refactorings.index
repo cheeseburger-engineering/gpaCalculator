@@ -1,0 +1,37 @@
+1559510658301	Rename resource 'createProductView.jsp'
+1559510994384	Rename type 'ProductListServlet'
+1559511164124	Rename resource 'productListView.jsp'
+1559511175903	Rename resource 'deleteProductErrorView.jsp'
+1559511185402	Rename resource 'editProductView.jsp'
+1559511198128	Rename type 'CreateProductServlet'
+1559511212827	Rename type 'DeleteProductServlet'
+1559511242705	Rename type 'Product'
+1559511398450	Rename resource 'addClassView.jsp'
+1559511569409	Rename compilation unit 'EditProductServlet.java'
+1559512050318	Rename type 'Class'
+1559512546557	Rename compilation unit 'GPAclass.java'
+1559513941930	Delete element
+1559513946982	Delete element
+1559513951800	Delete element
+1559513959314	Delete element
+1559513976566	Delete element
+1559513979206	Delete element
+1559513981689	Delete element
+1559513985829	Delete element
+1559514067585	Delete element
+1559514152793	Rename type 'Product'
+1559514323112	Rename type 'CreateProductServlet'
+1559514535745	Rename resource 'productListView.jsp'
+1559514598022	Rename type 'ProductListServlet'
+1559514693266	Rename resource 'createProductView.jsp'
+1559514917213	Rename type 'EditProductServlet'
+1559514930507	Rename resource 'editProductView.jsp'
+1559515260959	Rename type 'DeleteProductServlet'
+1559515283401	Rename resource 'deleteProductErrorView.jsp'
+1559520936883	Rename method 'setPrice'
+1559521213309	Rename local variable 'priceStr'
+1559521227416	Rename local variable 'price'
+1559521269723	Rename local variable 'priceStr'
+1559521276554	Rename local variable 'price'
+1559521313496	Rename local variable 'price'
+1559521328048	Rename local variable 'price'

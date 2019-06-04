@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Git\gpaCalculator\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1502450691.index
+3215512515.index
+3757050310.index
+2993371662.index
+3055454702.index
+341714912.index

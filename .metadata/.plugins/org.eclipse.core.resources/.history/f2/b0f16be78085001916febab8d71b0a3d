@@ -1,0 +1,129 @@
+package org.cheeseburger.gpacalculator.utils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.cheeseburger.gpacalculator.beans.Class;
+import org.cheeseburger.gpacalculator.beans.UserAccount;
+
+public class DBUtils {
+
+	public static UserAccount findUser(Connection conn, //
+			String userName, String password) throws SQLException {
+
+		String sql = "Select a.User_Name, a.Password from User_Account a " //
+				+ " where a.User_Name = ? and a.password= ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, userName);
+		pstm.setString(2, password);
+//		pstm.setString(3, school);
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			UserAccount user = new UserAccount();
+			user.setUserName(userName);
+			user.setPassword(password);
+//			user.setSchool(school);
+			return user;
+		}
+		return null;
+	}
+
+	public static UserAccount findUser(Connection conn, String userName) throws SQLException {
+
+		String sql = "Select a.User_Name and a.Password User_Account a "//
+				+ " where a.User_Name = ? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, userName);
+
+		ResultSet rs = pstm.executeQuery();
+
+		if (rs.next()) {
+			String password = rs.getString("Password");
+			String school = rs.getString("School");
+			UserAccount user = new UserAccount();
+			user.setUserName(userName);
+			user.setPassword(password);
+			user.setSchool(school);
+			return user;
+		}
+		return null;
+	}
+
+	public static List<Class> queryClass(Connection conn) throws SQLException {
+		String sql = "Select a.Code, a.Name, a.Price from Class a ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		ResultSet rs = pstm.executeQuery();
+		List<Class> list = new ArrayList<Class>();
+		while (rs.next()) {
+			String code = rs.getString("Code");
+			String name = rs.getString("Name");
+			float price = rs.getFloat("Price");
+			Class class = new Class();
+			class.setCode(code);
+			class.setName(name);
+			class.setPrice(price);
+			list.add(class);
+		}
+		return list;
+	}
+
+	public static Class findClass(Connection conn, String code) throws SQLException {
+		String sql = "Select a.Code, a.Name, a.Price from Class a where a.Code=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, code);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			String name = rs.getString("Name");
+			float price = rs.getFloat("Price");
+			Class class = new Class(code, name, price);
+			return class;
+		}
+		return null;
+	}
+
+	public static void updateClass(Connection conn, Class class) throws SQLException {
+		String sql = "Update Class set Name =?, Price=? where Code=? ";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, class.getName());
+		pstm.setFloat(2, class.getPrice());
+		pstm.setString(3, class.getCode());
+		pstm.executeUpdate();
+	}
+
+	public static void insertclass(Connection conn, Class class) throws SQLException {
+		String sql = "Insert into Class(Code, Name,Price) values (?,?,?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, class.getCode());
+		pstm.setString(2, class.getName());
+		pstm.setFloat(3, class.getPrice());
+
+		pstm.executeUpdate();
+	}
+
+	public static void deleteClass(Connection conn, String code) throws SQLException {
+		String sql = "Delete From Class where Code= ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, code);
+
+		pstm.executeUpdate();
+	}
+
+}

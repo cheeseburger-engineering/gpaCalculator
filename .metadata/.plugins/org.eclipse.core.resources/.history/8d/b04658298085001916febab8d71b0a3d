@@ -1,0 +1,89 @@
+package org.cheeseburger.gpacalculator.servlet;
+ 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+ 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.cheeseburger.gpacalculator.beans.Class;
+import org.cheeseburger.gpacalculator.utils.DBUtils;
+import org.cheeseburger.gpacalculator.utils.MyUtils;
+ 
+@WebServlet(urlPatterns = { "/createClass" })
+public class CreateClassServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+ 
+    public CreateClassServlet() {
+        super();
+    }
+ 
+    // Show class creation page.
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+ 
+        RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/views/createClassView.jsp");
+        dispatcher.forward(request, response);
+    }
+ 
+    // When the user enters the class information, and click Submit.
+    // This method will be called.
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Connection conn = MyUtils.getStoredConnection(request);
+ 
+        String code = (String) request.getParameter("code");
+        String name = (String) request.getParameter("name");
+        String priceStr = (String) request.getParameter("price");
+        float price = 0;
+        try {
+            price = Float.parseFloat(priceStr);
+        } catch (Exception e) {
+        }
+        Class GPAclass = new Class(code, name, price);
+ 
+        String errorString = null;
+ 
+        // Class ID is the string literal [a-zA-Z_0-9]
+        // with at least 1 character
+        String regex = "\\w+";
+ 
+        if (code == null || !code.matches(regex)) {
+            errorString = "Class Code invalid!";
+        }
+ 
+        if (errorString == null) {
+            try {
+                DBUtils.insertClass(conn, class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                errorString = e.getMessage();
+            }
+        }
+ 
+        // Store infomation to request attribute, before forward to views.
+        request.setAttribute("errorString", errorString);
+        request.setAttribute("class", class);
+ 
+        // If error, forward to Edit page.
+        if (errorString != null) {
+            RequestDispatcher dispatcher = request.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/views/createClassView.jsp");
+            dispatcher.forward(request, response);
+        }
+        // If everything nice.
+        // Redirect to the class listing page.
+        else {
+            response.sendRedirect(request.getContextPath() + "/classList");
+        }
+    }
+ 
+}

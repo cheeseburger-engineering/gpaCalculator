@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="Gpa" key="selection"/>
+		<item value="true" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="Price"/>
+			<item value="price"/>
+			<item value="gpa"/>
+			<item value="a.price"/>
+			<item value="pr"/>
+			<item value="grade"/>
+			<item value="etPrice"/>
+			<item value="setPrice"/>
+			<item value="serPrice"/>
+			<item value="getPrice"/>
+			<item value="getP"/>
+			<item value="get"/>
+			<item value="pric"/>
+			<item value="grade."/>
+			<item value="Grade"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Gpa"/>
+			<item value="gpa"/>
+			<item value="price"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="304" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|10.5|0|WINDOWS|1|-14|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="434" key="DIALOG_HEIGHT"/>
+		<item value="1098" key="DIALOG_X_ORIGIN"/>
+		<item value="195" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>
