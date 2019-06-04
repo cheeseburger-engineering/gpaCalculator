@@ -29,7 +29,7 @@ def viewClasses():
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
-    )
+    ).fetchone()[0]
     return render_template('calc/view.html', posts=posts, avg=avg)
 
 @bp.route('/create', methods=('GET', 'POST'))
