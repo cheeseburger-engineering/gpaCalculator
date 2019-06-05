@@ -11,54 +11,56 @@ bp = Blueprint('calc', __name__)
 @bp.route('/')
 def index():
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('calc/index.html', posts=posts)
+    return render_template('calc/index.html')
 
 # Login view to see saved classes/grades
 @bp.route('/accountInfo')
 @login_required
 def viewClasses():
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+    posts = get_db().execute(
+        'SELECT p.id, classname, grade, author_id, username'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
     ).fetchall()
-    return render_template('calc/view.html', posts=posts)
+    avg = get_db().execute(
+        'SELECT AVG(grade)'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchone()[0]
+    return render_template('calc/view.html', posts=posts, avg=avg)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
+        classname = request.form['classname']
+        grade = request.form['grade']
         error = None
 
-        if not title:
-            error = 'Title is required.'
+        if not classname:
+            error = 'Class name is required.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO post (title, body, author_id)'
+                'INSERT INTO class (classname, grade, author_id)'
                 ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+                (classname, grade, g.user['id'])
             )
             db.commit()
-            return redirect(url_for('calc.index'))
+            return redirect(url_for('calc.viewClasses'))
 
     return render_template('calc/create.html')
 
 def get_post(id, check_author=True):
     post = get_db().execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
+        'SELECT p.id, classname, grade, author_id, username'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
     ).fetchone()
@@ -77,24 +79,24 @@ def update(id):
     post = get_post(id)
 
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
+        classname = request.form['classname']
+        grade = request.form['grade']
         error = None
 
-        if not title:
-            error = 'Title is required.'
+        if not classname:
+            error = 'Class name is required.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'UPDATE post SET title = ?, body = ?'
+                'UPDATE class SET classname = ?, grade = ?'
                 ' WHERE id = ?',
-                (title, body, id)
+                (classname, grade, id)
             )
             db.commit()
-            return redirect(url_for('calc.index'))
+            return redirect(url_for('calc.viewClasses'))
 
     return render_template('calc/update.html', post=post)
 
@@ -103,7 +105,7 @@ def update(id):
 def delete(id):
     get_post(id)
     db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.execute('DELETE FROM class WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('calc.index'))
+    return redirect(url_for('calc.viewClasses'))
 
