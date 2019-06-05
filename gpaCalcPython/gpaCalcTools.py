@@ -70,7 +70,7 @@ def getGoal(goal, goalCourse, courses)
 	totGrade = 0
 	totCredits = 0
 	for course in courses:
-		totGrade += course.grade
+		totGrade += let2GPA(course.grade)
 		totCredits += course.credits
 	goalGrade = goal * (totCredits + goalCourse.credits) - totGrade
 	return goalGrade
