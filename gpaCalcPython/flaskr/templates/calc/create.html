@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Post{% endblock %}</h1>
+  <h1>{% block title %}Add a class{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post">
     <label for="classname">Class Name</label>
-    <input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
+		<input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
     <label for="grade">Grade (please enter an integer)</label>
-    <input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
+		<input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
+	<label for="credits">Credits (If you do not wish to weight your classes, please enter "1" for all classes)</label>
+		<input name="credits" id="credits" value="{{ request.form['credits'] }}" required>
     <input type="submit" value="Save">
   </form>
 {% endblock %}

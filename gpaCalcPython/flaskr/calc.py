@@ -19,17 +19,24 @@ def index():
 def viewClasses():
     db = get_db()
     posts = get_db().execute(
-        'SELECT p.id, classname, grade, author_id, username'
+        'SELECT p.id, classname, grade, credits, author_id, username'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchall()
-    avg = get_db().execute(
-        'SELECT AVG(grade)'
+    gradeSum = get_db().execute(
+        'SELECT SUM(grade*credits)'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchone()[0]
+    creditSum = get_db().execute(
+        'SELECT SUM(credits)'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchone()[0]
+    avg = round(gradeSum / creditSum, 2)
     return render_template('calc/view.html', posts=posts, avg=avg)
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -38,6 +45,7 @@ def create():
     if request.method == 'POST':
         classname = request.form['classname']
         grade = request.form['grade']
+        credits = request.form['credits']
         error = None
 
         if not classname:
@@ -48,9 +56,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO class (classname, grade, author_id)'
-                ' VALUES (?, ?, ?)',
-                (classname, grade, g.user['id'])
+                'INSERT INTO class (classname, grade, credits, author_id)'
+                ' VALUES (?, ?, ?, ?)',
+                (classname, grade, credits, g.user['id'])
             )
             db.commit()
             return redirect(url_for('calc.viewClasses'))
@@ -59,7 +67,7 @@ def create():
 
 def get_post(id, check_author=True):
     post = get_db().execute(
-        'SELECT p.id, classname, grade, author_id, username'
+        'SELECT p.id, classname, grade, credits, author_id, username'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
@@ -81,6 +89,7 @@ def update(id):
     if request.method == 'POST':
         classname = request.form['classname']
         grade = request.form['grade']
+        credits = request.form['credits']
         error = None
 
         if not classname:
@@ -91,9 +100,9 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE class SET classname = ?, grade = ?'
+                'UPDATE class SET classname = ?, grade = ?, credits = ?'
                 ' WHERE id = ?',
-                (classname, grade, id)
+                (classname, grade, credits, id)
             )
             db.commit()
             return redirect(url_for('calc.viewClasses'))

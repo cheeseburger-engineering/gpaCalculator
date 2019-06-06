@@ -22,7 +22,7 @@
 					<tr>
 						<td align="center">{{ post['classname'] }}</td>
 						<td align="center">{{ post['grade'] }}</td>
-						<td align="center"></td>
+						<td align="center">{{ post['credits'] }}</td>
 						<td align="center">
 							{% if g.user['id'] == post['author_id'] %}
 								<a class="action" href="{{ url_for('calc.update', id=post['id']) }}">Edit</a>

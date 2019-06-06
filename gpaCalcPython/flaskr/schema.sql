@@ -12,5 +12,6 @@ CREATE TABLE class (
   author_id INTEGER NOT NULL,
   classname TEXT NOT NULL,
   grade INTEGER NOT NULL,
+  credits INTEGER NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );

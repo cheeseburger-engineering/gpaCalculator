@@ -5,16 +5,19 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="classname">Class Name</label>
-    <input name="classname" id="classname"
-      value="{{ request.form['classname'] or post['classname'] }}" required>
-    <label for="grade">Grade</label>
-	<input name="grade" id="grade" value="{{ request.form['grade'] or post['grade'] }}" required>
-    <input type="submit" value="Save">
-  </form>
-  <hr>
-  <form action="{{ url_for('calc.delete', id=post['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+	<form method="post">
+		<label for="classname">Class Name</label>
+		<input name="classname" id="classname"
+			value="{{ request.form['classname'] or post['classname'] }}" required>
+		<label for="grade">Grade</label>
+			<input name="grade" id="grade" value="{{ request.form['grade'] or post['grade'] }}" required>
+		<label for="credits">Credits</label>
+			<input name="credits" id="credits" value="{{ request.form['credits'] or post['credits'] }}" required>
+		<input type="submit" value="Save">
+	</form>
+	
+	<hr>
+	<form action="{{ url_for('calc.delete', id=post['id']) }}" method="post">
+		<input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+	</form>
 {% endblock %}
