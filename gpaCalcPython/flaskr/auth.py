@@ -4,6 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
+from passlib.hash import sha256_crypt
 
 from flaskr.db import get_db
 
@@ -29,7 +30,7 @@ def register():
         if error is None:
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                (username, sha256_crypt.hash(password))
             )
             db.commit()
             return redirect(url_for('auth.login'))
@@ -50,9 +51,9 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = 'Incorrect username or password.'
+        elif not sha256_crypt.verify(password, user['password']):
+            error = 'Incorrect username or password.'
 
         if error is None:
             session.clear()
