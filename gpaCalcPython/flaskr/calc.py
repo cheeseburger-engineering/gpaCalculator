@@ -18,7 +18,7 @@ def index():
 @login_required
 def viewClasses():
     db = get_db()
-    posts = get_db().execute(
+    classes = get_db().execute(
         'SELECT p.id, classname, grade, credits, author_id, username'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
@@ -37,7 +37,7 @@ def viewClasses():
         (g.user['id'],)
     ).fetchone()[0]
     avg = round(gradeSum / creditSum, 2)
-    return render_template('calc/view.html', posts=posts, avg=avg)
+    return render_template('calc/view.html', classes=classes, avg=avg)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -65,26 +65,26 @@ def create():
 
     return render_template('calc/create.html')
 
-def get_post(id, check_author=True):
-    post = get_db().execute(
+def get_class(id, check_author=True):
+    clss = get_db().execute(
         'SELECT p.id, classname, grade, credits, author_id, username'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
     ).fetchone()
 
-    if post is None:
-        abort(404, "Post id {0} doesn't exist.".format(id))
+    if clss is None:
+        abort(404, "Class id {0} doesn't exist.".format(id))
 
-    if check_author and post['author_id'] != g.user['id']:
+    if check_author and clss['author_id'] != g.user['id']:
         abort(403)
 
-    return post
+    return clss
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
-    post = get_post(id)
+    clss = get_class(id)
 
     if request.method == 'POST':
         classname = request.form['classname']
@@ -107,7 +107,7 @@ def update(id):
             db.commit()
             return redirect(url_for('calc.viewClasses'))
 
-    return render_template('calc/update.html', post=post)
+    return render_template('calc/update.html', clss=clss)
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required

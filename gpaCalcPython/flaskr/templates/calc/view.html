@@ -13,19 +13,19 @@
 			<td>
 				<table border = "1" width = "100%">
 					<tr>
-						<th><h1>Class</h1></th>
-						<th><h1>Grade</h1></th>
-						<th><h1>Credits</h1></th>
-						<th><h1>Edit</h1></th>
-					</tr	
-					{% for post in posts %}
+						<th style="color:teal"><h3>Class</h3></th>
+						<th style="color:teal"><h3>Grade</h3></th>
+						<th style="color:teal"><h3>Credits</h3></th>
+						<th style="color:teal"><h3>Edit</h3></th>
+					</tr>
+					{% for clss in classes %}
 					<tr>
-						<td align="center">{{ post['classname'] }}</td>
-						<td align="center">{{ post['grade'] }}</td>
-						<td align="center">{{ post['credits'] }}</td>
-						<td align="center">
-							{% if g.user['id'] == post['author_id'] %}
-								<a class="action" href="{{ url_for('calc.update', id=post['id']) }}">Edit</a>
+						<td style="text-align:center">{{ clss['classname'] }}</td>
+						<td style="text-align:center">{{ clss['grade'] }}</td>
+						<td style="text-align:center">{{ clss['credits'] }}</td>
+						<td style="text-align:center">
+							{% if g.user['id'] == clss['author_id'] %}
+								<a class="action" href="{{ url_for('calc.update', id=clss['id']) }}">Edit</a>
 							{% endif %}
 						</td>
 					</tr>
