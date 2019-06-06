@@ -8,22 +8,33 @@
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>Class: {{ post['classname'] }}</h1>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('calc.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="grade">Grade: {{ post['grade'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+	<table border = "1" width = "100%">
+        <tr>
+			<td>
+				<table border = "1" width = "100%">
+					<tr>
+						<th><h1>Class</h1></th>
+						<th><h1>Grade</h1></th>
+						<th><h1>Credits</h1></th>
+						<th><h1>Edit</h1></th>
+					</tr	
+					{% for post in posts %}
+					<tr>
+						<td align="center">{{ post['classname'] }}</td>
+						<td align="center">{{ post['grade'] }}</td>
+						<td align="center"></td>
+						<td align="center">
+							{% if g.user['id'] == post['author_id'] %}
+								<a class="action" href="{{ url_for('calc.update', id=post['id']) }}">Edit</a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</td>
+         </tr>
+	</table>
+	<br>
 	<hr>  	
 	<h1 div style="text-align:center">Average grade: {{ avg }}</h1>
 {% endblock %}

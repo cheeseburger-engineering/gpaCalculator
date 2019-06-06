@@ -8,7 +8,7 @@
   <form method="post">
     <label for="classname">Class Name</label>
     <input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
-    <label for="grade">Grade</label>
+    <label for="grade">Grade (please enter an integer)</label>
     <input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
     <input type="submit" value="Save">
   </form>
