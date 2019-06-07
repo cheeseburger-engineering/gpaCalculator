@@ -37,4 +37,14 @@
 	<br>
 	<hr>  	
 	<h1 div style="text-align:center">Average GPA: {{ avg }}</h1>
+	<hr>
+	<div>
+		{% if goal == 0 %}
+			<p>To calculate the minimum graded needed in your next class to maintain your current GPA, click below</p>
+			<a class="action" href="{{ url_for('calc.getGoalInfo') }}">Calculate Goal GPA</a>
+		{% else %}
+			<p>To maintain your current GPA, you need a {{goal}} in [[CLASS]]</p>
+		{% endif %}
+	</div>
+	
 {% endblock %}

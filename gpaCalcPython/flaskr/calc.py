@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 from werkzeug.exceptions import abort
 
@@ -24,6 +24,15 @@ def viewClasses():
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchall()
+    avg = getAvgGpa()
+    if session.get('goal') == True:
+        goal = session['goal']
+    else:
+        goal = 0
+    return render_template('calc/view.html', courses=courses, avg=avg, goal=goal)
+	
+def getAvgGpa():
+    db = get_db()
     gradeSum = get_db().execute(
         'SELECT SUM(grade*credits)'
         ' FROM class p JOIN user u ON p.author_id = u.id'
@@ -40,7 +49,42 @@ def viewClasses():
         avg = let2GPA(perc2let(round(gradeSum / creditSum, 2)))
     else:
         avg = 0
-    return render_template('calc/view.html', courses=courses, avg=avg)
+    return avg
+	
+@bp.route('/getGoalInfo')
+@login_required
+def getGoalInfo():
+    db = get_db()
+    courses = get_db().execute(
+        'SELECT p.id, classname, grade, credits, author_id, username'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchall()
+
+    if request.method == 'POST':
+        session['classname'] = request.form['classname']
+        session['credits'] = request.form['credits']
+        error = None
+        session['goal'] = getGoalGpa(getAvgGpa(), session['credits'], courses)
+
+        if error is not None:
+            flash(error)
+        else:
+            session['goal'] = getGoalGpa(getAvgGpa(), session['credits'], courses)
+            return redirect(url_for('calc.viewClasses'))
+    return render_template('calc/goal.html')
+
+# Function to determine grade necessary to maintain GPA
+def getGoalGpa(goal, credit, courses):
+    # Expected input is goal GPA (float), goalCourse (course object with attributes: letter grade (string) and credits (int)), and courses (list of course objects)
+	totGrade = 0
+	totCredits = 0
+	for course in courses:
+		totGrade += let2GPA(course.grade)
+		totCredits += credits
+	goalGrade = goal * (totCredits + goalCourse.credits) - totGrade
+	return goalGrade
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -191,17 +235,6 @@ def calcTotalGPA(courses):
 		totGPA += weighGPA(course)
 	totGPA = totGPA / len(courses)
 	return totGPA
-
-# Function to determine grade necessary to maintain GPA
-def getGoal(goal, goalCourse, courses):
-    # Expected input is goal GPA (float), goalCourse (course object with attributes: letter grade (string) and credits (int)), and courses (list of course objects)
-	totGrade = 0
-	totCredits = 0
-	for course in courses:
-		totGrade += let2GPA(course.grade)
-		totCredits += course.credits
-	goalGrade = goal * (totCredits + goalCourse.credits) - totGrade
-	return goalGrade
 	
 # Fuctions below are more oriented toward manipulating the data for a use
 # i.e. setting grades, setting course credit values, etc.
