@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ clss['classname'] }}"{% endblock %}</h1>
+  <h1>{% block title %}Edit "{{ course['classname'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -9,22 +9,22 @@
 		<div class="block">
 			<label for="classname">Class Name</label>
 			<input name="classname" id="classname"
-				value="{{ request.form['classname'] or clss['classname'] }}" required>
+				value="{{ request.form['classname'] or course['classname'] }}" required>
 		</div>
 		<div class="block">
 			<label for="grade">Grade</label>
-			<input name="grade" id="grade" value="{{ request.form['grade'] or clss['grade'] }}" required>
+			<input name="grade" id="grade" value="{{ request.form['grade'] or course['grade'] }}" required>
 		</div>
 		<div class="block">
 			<label for="credits">Credits</label>
-			<input name="credits" id="credits" value="{{ request.form['credits'] or clss['credits'] }}" required>
+			<input name="credits" id="credits" value="{{ request.form['credits'] or course['credits'] }}" required>
 		</div>
 		</br>
 		<input type="submit" value="Save">
 		<a href="{{ url_for('calc.viewClasses') }}">Cancel</a>
 	</form>
 	<hr>
-	<form action="{{ url_for('calc.delete', id=clss['id']) }}" method="post">
+	<form action="{{ url_for('calc.delete', id=course['id']) }}" method="post">
 		<input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
 	</form>
 {% endblock %}

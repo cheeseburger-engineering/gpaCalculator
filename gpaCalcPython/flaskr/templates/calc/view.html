@@ -16,16 +16,16 @@
 						<th style="color:teal"><h3>Class</h3></th>
 						<th style="color:teal"><h3>Grade</h3></th>
 						<th style="color:teal"><h3>Credits</h3></th>
-						<th style="color:teal"><h3>Edit</h3></th>
+						<th style="color:teal"></th>
 					</tr>
-					{% for clss in classes %}
+					{% for course in courses %}
 					<tr>
-						<td style="text-align:center">{{ clss['classname'] }}</td>
-						<td style="text-align:center">{{ clss['grade'] }}</td>
-						<td style="text-align:center">{{ clss['credits'] }}</td>
+						<td style="text-align:center">{{ course['classname'] }}</td>
+						<td style="text-align:center">{{ course['grade'] }}</td>
+						<td style="text-align:center">{{ course['credits'] }}</td>
 						<td style="text-align:center">
-							{% if g.user['id'] == clss['author_id'] %}
-								<a class="action" href="{{ url_for('calc.update', id=clss['id']) }}">Edit</a>
+							{% if g.user['id'] == course['author_id'] %}
+								<a class="action" href="{{ url_for('calc.update', id=course['id']) }}">Edit</a>
 							{% endif %}
 						</td>
 					</tr>
