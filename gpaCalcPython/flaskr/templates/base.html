@@ -5,11 +5,12 @@
   <h1>Welcome to SE577 GPA Calculator</h1>
   <ul>
     {% if g.user %}
+	  <li><a href="{{ url_for('calc.index') }}">Home</a>
       <li><a href="{{ url_for('calc.viewClasses') }}">View Account</a>
 	  <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
     {% else %}
-	<li><a href="{{ url_for('calc.index') }}">Home</a>
+	  <li><a href="{{ url_for('calc.index') }}">Home</a>
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
