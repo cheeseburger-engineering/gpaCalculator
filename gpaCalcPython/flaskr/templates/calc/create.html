@@ -6,12 +6,20 @@
 
 {% block content %}
   <form method="post">
-    <label for="classname">Class Name</label>
+	<div class="block">
+		<label for="classname">Class Name</label>
 		<input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
-    <label for="grade">Grade (please enter an integer)</label>
+	</div>
+	<div class="block">
+		<label for="grade">Grade (please enter an integer)</label>
 		<input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
-	<label for="credits">Credits (If you do not wish to weight your classes, please enter "1" for all classes)</label>
+	</div>
+	<div class="block">
+		<label for="credits">Credits</label>
 		<input name="credits" id="credits" value="{{ request.form['credits'] }}" required>
+		<p>(If you do not wish to weight your classes, please enter "1" for all classes)</p>
+	</div>
     <input type="submit" value="Save">
+	<a href="{{ url_for('calc.viewClasses') }}">Cancel</a>
   </form>
 {% endblock %}

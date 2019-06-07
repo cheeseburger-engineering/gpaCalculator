@@ -24,3 +24,20 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}​
+#credit {
+  width: 150px;
+  display: inline;
+}
+#helpBlock {
+  font-size: x-small;
+  display: block;
+}
+
+.p-l-none{
+  padding-left:0px !important;
+}

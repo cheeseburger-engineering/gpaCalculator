@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Get a Goal Grade{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<div>
+			<label for="classname" class="form-group form-inline">Class Name</label>
+			<input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
+		</div>
+		<div>
+			<label for="grade">Grade (please enter an integer)</label>
+			<input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
+		</div>
+		<div>
+			<label for="credits">Credits</label>
+				<input name="credits" id="credits" value="{{ request.form['credits'] }}" required>
+				<small id="helpBlock" class="form-text text-muted">(If you do not wish to weight your classes, please enter "1" for all classes)</small>
+		<div>
+		</br>
+		<a class="action" href="{{ url_for('calc.viewGoal') }}">Calculate Goal</a>
+		{% if goal %}
+			<p>Your goal GPA for {{ request.form['classname'] }} is: {{ goal }}</p>
+		{% endif %}
+	</form>
+{% endblock %}
