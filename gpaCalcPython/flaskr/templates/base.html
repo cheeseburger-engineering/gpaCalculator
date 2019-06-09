@@ -9,6 +9,7 @@
       <li><a href="{{ url_for('calc.viewClasses') }}">View Account</a>
 	  <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li><a href="{{ url_for('auth.passwordReset') }}">Change Password</a>
     {% else %}
 	  <li><a href="{{ url_for('calc.index') }}">Home</a>
       <li><a href="{{ url_for('auth.register') }}">Register</a>

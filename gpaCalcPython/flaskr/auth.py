@@ -7,6 +7,7 @@ from flask import (
 from passlib.hash import sha256_crypt
 
 from flaskr.db import get_db
+# from flaskr.calc import index
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -90,6 +91,33 @@ def login_required(view):
 
     return wrapped_view
 
+@bp.route('/changePassword')
+@login_required
+def passwordReset():
+    if request.method == 'POST':
+        username = request.form['username']	
+        oldPass = request.form['oldPassword']
+        newPass = request.form['newPassword']
+        db = get_db()
+        error = None
+        # user = db.execute(
+        #     'SELECT * FROM user WHERE username = ?', (username,)
+        # ).fetchone()
 
+        if newPass is None:
+            error = 'Input a new password'
+        else:
+        # elif not sha256_crypt.verify(oldPass, user['password']):
+        #     id = user['id']
+            db.execute(
+                'UPDATE user SET password = ?'
+                ' WHERE id = ?',
+                (sha256_crypt.hash(newPass), g.user['id'])
+            )
+            db.commit()
+            return redirect(url_for('calc.viewClasses'))
 
+        flash(error)
 
+    return render_template('auth/changePassword.html')
+	
