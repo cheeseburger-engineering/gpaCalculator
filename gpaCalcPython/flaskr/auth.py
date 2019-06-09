@@ -98,7 +98,6 @@ def passwordReset():
         username = request.form['username']	
         oldPass = request.form['oldPassword']
         newPass = request.form['newPassword']
-        db = get_db()
         error = None
         # user = db.execute(
         #     'SELECT * FROM user WHERE username = ?', (username,)
@@ -109,13 +108,14 @@ def passwordReset():
         else:
         # elif not sha256_crypt.verify(oldPass, user['password']):
         #     id = user['id']
+            db = get_db()
             db.execute(
                 'UPDATE user SET password = ?'
                 ' WHERE id = ?',
                 (sha256_crypt.hash(newPass), g.user['id'])
             )
             db.commit()
-            return redirect(url_for('calc.viewClasses'))
+            return redirect(url_for('calc.index'))
 
         flash(error)
 
