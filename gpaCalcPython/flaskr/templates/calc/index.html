@@ -97,8 +97,8 @@
 
 <div id="calctable">
     <h3>Quick Calculation</h3>
-    <form action="/action_page.php" method="post">
-<table class="table table-bordered">
+    <form id="frm1" action="/action_page.php">
+    <table class="table table-hover">
       <tr>
       <th>Letter Grade</th>
         <th>Credits</th></tr>
@@ -124,11 +124,14 @@
       </tr>
     </table>
     </form>
-    <input type="button" id="button" value="CALCULATE" onclick=GPA()>
+    <input type="button" id="button" class="btn btn-success" value="Calculate GPA" onclick=GPA()>
+
+<div>
+    <h4 id="demo">Your GPA is</h4>
+</div>
 
   </div>
-<p id="demo"></p>
-</div>
+
 
     <script>
 
@@ -136,35 +139,68 @@
   if(letter=="A"){
     return 4.0;
   }
+  if(letter=="a"){
+    return 4.0;
+  }
   if(letter=="A-"){
+    return 3.67;
+  }
+  if(letter=="a-"){
     return 3.67;
   }
   if(letter=="B+"){
     return 3.33;
   }
+  if(letter=="b+"){
+    return 3.33;
+  }
   if(letter=="B"){
     return 3.0;
+  }
+  if(letter=="b") {
+      return 3.0;
   }
   if(letter=="B-"){
     return 2.67;
   }
+  if(letter=="b-") {
+      return 3.0;
+  }
   if(letter=="C+"){
     return 2.33;
+  }
+  if(letter=="c+"){
+    return 3.33;
   }
   if(letter=="C"){
     return 2.0;
   }
+  if(letter=="c"){
+    return 3.33;
+  }
   if(letter=="C-"){
     return 1.67;
+  }
+  if(letter=="c-"){
+    return 3.33;
   }
   if(letter=="D+"){
     return 1.33;
   }
+  if(letter=="d+"){
+    return 3.33;
+  }
   if(letter=="D"){
     return 1;
   }
+  if(letter=="d"){
+    return 3.33;
+  }
   if(letter=="D-"){
     return 0.67;
+  }
+  if(letter=="d-"){
+    return 3.33;
   }
   return 0;
 }
@@ -175,9 +211,8 @@ function gp(lst){
     newlst += [GPb(lst[i])];
   }
   return newlst;
-};
-
-function GPA(){
+}
+    function GPA(){
   var cred_sum = 0;
   var val_sum = 0;
   var x = document.getElementById("frm1");
@@ -195,3 +230,4 @@ function GPA(){
     </script>
 {% endblock %}
 
+</div>
