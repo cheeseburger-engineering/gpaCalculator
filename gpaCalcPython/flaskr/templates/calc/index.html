@@ -1,12 +1,28 @@
 {% extends 'base.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='style.css')}}">
+{% endblock %}
 
 {% block header %}
-  <h1>{% block title %}Welcome to our GPA Calculator. Please login or register to get started!{% endblock %}</h1>
+  <h2>{% block title %}Welcome to our GPA Calculator. Please login or register to get started!{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
-<h2>Grade Conversion Table</h2>
-<table>
+
+  {% if g.user %}
+    <h1>Hello {{ g.user['username'] }}!</h1>
+{% endif %}
+<br>
+<br>
+<br>
+
+<div id="wrapper">
+
+ <div id="contable">
+<h3>Grade Conversion Table</h3>
+<table class="table table-hover">
   <tr>
     <th>Letter Grade</th>
     <th>Number Grade</th>
@@ -77,7 +93,105 @@
     <td></td>
   </tr>
 </table>
+    </div>
 
+<div id="calctable">
+    <h3>Quick Calculation</h3>
+    <form action="/action_page.php" method="post">
+<table class="table table-bordered">
+      <tr>
+      <th>Letter Grade</th>
+        <th>Credits</th></tr>
+      <tr>
+        <td><input type="text" name="g1" value=""></td>
+        <td><input type="text" name="c1" value=0></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="g2" value=""></td>
+        <td><input type="text" name="c2" value=0></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="g3" value=""></td>
+        <td><input type="text" name="c3" value=0></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="g4" value=""></td>
+        <td><input type="text" name="c4" value=0></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="g5" value=""></td>
+        <td><input type="text" name="c5" value=0></td>
+      </tr>
+    </table>
+    </form>
+    <input type="button" id="button" value="CALCULATE" onclick=GPA()>
 
+  </div>
+<p id="demo"></p>
+</div>
 
+    <script>
+
+    function GPb(letter){
+  if(letter=="A"){
+    return 4.0;
+  }
+  if(letter=="A-"){
+    return 3.67;
+  }
+  if(letter=="B+"){
+    return 3.33;
+  }
+  if(letter=="B"){
+    return 3.0;
+  }
+  if(letter=="B-"){
+    return 2.67;
+  }
+  if(letter=="C+"){
+    return 2.33;
+  }
+  if(letter=="C"){
+    return 2.0;
+  }
+  if(letter=="C-"){
+    return 1.67;
+  }
+  if(letter=="D+"){
+    return 1.33;
+  }
+  if(letter=="D"){
+    return 1;
+  }
+  if(letter=="D-"){
+    return 0.67;
+  }
+  return 0;
+}
+
+function gp(lst){
+  newlst = [];
+  for(var i = 0; i<lst.length;i++){
+    newlst += [GPb(lst[i])];
+  }
+  return newlst;
+};
+
+function GPA(){
+  var cred_sum = 0;
+  var val_sum = 0;
+  var x = document.getElementById("frm1");
+  var letters = [x.elements["g1"].value, x.elements["g2"].value,x.elements["g3"].value,x.elements["g4"].value,x.elements["g5"].value];
+  var let_vals = [GPb(letters[0]),GPb(letters[1]),GPb(letters[2]),GPb(letters[3]),GPb(letters[4]),GPb(letters[5])];
+  var creds = [parseInt(x.elements["c1"].value), parseInt(x.elements["c2"].value), parseInt(x.elements["c3"].value), parseInt(x.elements["c4"].value), parseInt(x.elements["c5"].value)];
+  for(var i=0;i<creds.length;i++)
+    {
+      val_sum += let_vals[i] * creds[i];
+      cred_sum += creds[i];
+    }
+  document.getElementById("demo").innerHTML = Number((val_sum/cred_sum).toFixed(2));
+}
+
+    </script>
 {% endblock %}
+

@@ -23,7 +23,7 @@ SCORE_MAP = {'A' : 4.0,
 			 'f' : 0.0}
 
 # Function to convert percentage grade to letter
-def perc2let(grade)
+def perc2let(grade):
 	if grade > 92:
 		let_grade = 'A'
 	elif grade > 89:

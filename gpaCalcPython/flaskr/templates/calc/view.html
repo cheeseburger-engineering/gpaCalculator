@@ -3,42 +3,50 @@
 {% block header %}
   <h1>{% block title %}My Classes and Grades{% endblock %}</h1>
   {% if g.user %}
+      <h1>Greetings {{ g.user['username'] }}</h1>
     <a class="action" href="{{ url_for('calc.create') }}">New</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-	<table border = "1" width = "100%">
-        <tr>
-			<td>
-				<table border = "1" width = "100%">
-					<tr>
-						<th style="color:teal"><h3>Class</h3></th>
-						<th style="color:teal"><h3>Grade</h3></th>
-						<th style="color:teal"><h3>Credits</h3></th>
-						<th style="color:teal"></th>
-					</tr>
-					{% for course in courses %}
-					<tr>
-						<td style="text-align:center">{{ course['classname'] }}</td>
-						<td style="text-align:center">{{ course['grade'] }}</td>
-						<td style="text-align:center">{{ course['credits'] }}</td>
-						<td style="text-align:center">
-							{% if g.user['id'] == course['author_id'] %}
-								<a class="action" href="{{ url_for('calc.update', id=course['id']) }}">Edit</a>
-							{% endif %}
+
+    {% if g.user %}
+    <h1>Hello {{ g.user['username'] }}!</h1>
+{% endif %}
+<br>
+<br>
+<br>
+
+	<table class="table table-bordered">
+        <thead>
+      <tr>
+          <th style="color:teal"><h3>Class</h3></th>
+          <th style="color:teal"><h3>Grade</h3></th>
+          <th style="color:teal"><h3>Credits</h3></th>
+          <th style="color:teal"></th>
+      </tr>
+        </thead>
+    <tbody>
+      {% for course in courses %}
+          <tr>
+              <td style="text-align:center">{{ course['classname'] }}</td>
+              <td style="text-align:center">{{ course['grade'] }}</td>
+              <td style="text-align:center">{{ course['credits'] }}</td>
+              <td style="text-align:center">
+                  {% if g.user['id'] == course['author_id'] %}
+                      <a href="{{ url_for('calc.update', id=course['id']) }}" class="btn btn-info" role="button">Edit</a>
+                  {% endif %}
 						</td>
 					</tr>
 					{% endfor %}
+    </tbody>
 				</table>
-			</td>
-         </tr>
-	</table>
+
 	<br>
 	<hr>  	
 	<h1 div style="text-align:center">Average GPA: {{ avg }}</h1>
 	<hr>
-	<div>
+	<div id="maintainGpa">
 		{% if goal == 0 %}
 			<p>To calculate the minimum graded needed in your next class to maintain your current GPA, click below</p>
 			<a class="action" href="{{ url_for('calc.getGoalInfo') }}">Calculate Goal GPA</a>

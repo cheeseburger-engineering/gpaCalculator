@@ -5,15 +5,18 @@
 {% endblock %}
 
 {% block content %}
+    <div id="auth">
+    <h3>Please Login In</h3>
   <form method="post">
-	<div class="block">
+	<div class="form-group">
 	   <label for="username">Username</label>
-       <input name="username" id="username" required>
+       <input name="username" class="form-control" id="username" required>
 	</div>
-	<div class="block">
+	<div class="form-group">
 	   <label for="password">Password</label>
-       <input type="password" name="password" id="password" required>
+       <input type="password" name="password" class="form-control" id="password" required>
 	</div>
-    <input type="submit" value="Log In">
+      <button type="submit" value="Log In" class="btn btn-success">Log In</button>
   </form>
+    </div>
 {% endblock %}

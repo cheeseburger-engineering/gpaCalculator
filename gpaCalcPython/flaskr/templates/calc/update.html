@@ -5,26 +5,28 @@
 {% endblock %}
 
 {% block content %}
-	<form method="post">
-		<div class="block">
+    <div id="auth">
+  <form method="post">
+      <div class="form-group">
 			<label for="classname">Class Name</label>
-			<input name="classname" id="classname"
+			<input name="classname" class="form-control"  id="classname"
 				value="{{ request.form['classname'] or course['classname'] }}" required>
 		</div>
-		<div class="block">
+		<div class="form-group">
 			<label for="grade">Grade</label>
-			<input name="grade" id="grade" value="{{ request.form['grade'] or course['grade'] }}" required>
+			<input name="grade" class="form-control" id="grade" value="{{ request.form['grade'] or course['grade'] }}" required>
 		</div>
-		<div class="block">
+		<div class="form-group">
 			<label for="credits">Credits</label>
-			<input name="credits" id="credits" value="{{ request.form['credits'] or course['credits'] }}" required>
+			<input name="credits" class="form-control"  id="credits" value="{{ request.form['credits'] or course['credits'] }}" required>
 		</div>
 		</br>
-		<input type="submit" value="Save">
-		<a href="{{ url_for('calc.viewClasses') }}">Cancel</a>
+		<input type="submit" value="Save" class="btn btn-success">
+		<a href="{{ url_for('calc.viewClasses') }}" class="btn btn-danger">Cancel</a>
 	</form>
 	<hr>
 	<form action="{{ url_for('calc.delete', id=course['id']) }}" method="post">
-		<input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+		<input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure?');">
 	</form>
+    </div>
 {% endblock %}
