@@ -91,11 +91,11 @@ def login_required(view):
 
     return wrapped_view
 
-@bp.route('/changePassword')
+@bp.route('/changePassword', methods=('GET', 'POST'))
 @login_required
 def passwordReset():
     if request.method == 'POST':
-        username = request.form['username']	
+        username = request.form['username']
         oldPass = request.form['oldPassword']
         newPass = request.form['newPassword']
         error = None

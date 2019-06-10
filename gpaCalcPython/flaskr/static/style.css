@@ -74,6 +74,14 @@ h4{
   background-color: white;
 }
 
+#footer{
+
+    width: 100%;
+    height: 125px;
+    background-color: #eeeeee;
+    padding: 2%;
+
+}
 #header{
   padding: 10px;
 }

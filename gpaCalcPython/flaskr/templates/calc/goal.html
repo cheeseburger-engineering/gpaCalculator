@@ -5,17 +5,19 @@
 {% endblock %}
 
 {% block content %}
+    <div id="auth">
 	<form method="post">
-		<div>
-			<label for="classname" class="form-group form-inline">Class Name</label>
-			<input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
+		<div class="form-group">
+			<label for="classname">Class Name</label>
+			<input name="classname" class="form-control" id="classname" value="{{ request.form['classname'] }}" required>
 		</div>
 		<div>
 			<label for="credits">Credits</label>
-				<input name="credits" id="credits" value="{{ request.form['credits'] }}" required>
+				<input name="credits" class="form-control" id="credits" value="{{ request.form['credits'] }}" required>
 				<small id="helpBlock" class="form-text text-muted">(If you do not wish to weight your classes, please enter "1" for all classes)</small>
-		<div>
+		</div>
 		</br>
-		<a class="action" href="{{ url_for('calc.viewClasses') }}">Calculate Goal</a>
+		<a href="{{ url_for('calc.viewClasses') }}" class="btn btn-success">Calculate Goal</a>
 	</form>
+    </div>
 {% endblock %}
