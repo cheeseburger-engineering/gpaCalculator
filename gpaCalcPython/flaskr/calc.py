@@ -156,10 +156,10 @@ def update(id):
 
     return render_template('calc/update.html', course=course)
 
-@bp.route('/<int:id>/delete', methods=('POST',))
+@bp.route('/<int:id>/delete', methods=('POST', 'GET'))
 @login_required
 def delete(id):
-    get_post(id)
+    get_class(id)
     db = get_db()
     db.execute('DELETE FROM class WHERE id = ?', (id,))
     db.commit()

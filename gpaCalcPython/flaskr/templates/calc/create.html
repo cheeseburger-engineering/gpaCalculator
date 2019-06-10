@@ -5,21 +5,23 @@
 {% endblock %}
 
 {% block content %}
+    <div id="auth">
     <form method="post">
 	<div class="form-group">
 		<label for="classname">Class Name</label>
-		<input name="classname" id="classname" value="{{ request.form['classname'] }}" required>
+		<input name="classname" class="form-control" id="classname" value="{{ request.form['classname'] }}" required>
 	</div>
 	<div class="form-group">
 		<label for="grade">Grade (please enter an integer)</label>
-		<input name="grade" id="grade" value="{{ request.form['grade'] }}" required>
+		<input name="grade" class="form-control" id="grade" value="{{ request.form['grade'] }}" required>
 	</div>
 	<div class="form-group">
 		<label for="credits">Credits</label>
-		<input name="credits" id="credits" value="{{ request.form['credits'] }}" required>
+		<input name="credits" class="form-control" id="credits" value="{{ request.form['credits'] }}" required>
 		<p>(If you do not wish to weight your classes, please enter "1" for all classes)</p>
 	</div>
-    <button type="submit" value="Save"></button>
-	<a href="{{ url_for('calc.viewClasses') }}">Cancel</a>
+    <input type="submit" value="Save" class="btn btn-success">
+	<a href="{{ url_for('calc.viewClasses') }}" class="btn btn-danger">Cancel</a>
     </form>
+    </div>
 {% endblock %}

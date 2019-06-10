@@ -17,7 +17,13 @@
 				<small id="helpBlock" class="form-text text-muted">(If you do not wish to weight your classes, please enter "1" for all classes)</small>
 		</div>
 		</br>
-		<a href="{{ url_for('calc.viewClasses') }}" class="btn btn-success">Calculate Goal</a>
+
 	</form>
+    <h1><a href="#" class="btn btn-success">Calculate Goal {{ avg }} </a></h1>
     </div>
 {% endblock %}
+
+
+
+
+<a href="{{ url_for('calc.viewClasses') }}" class="btn btn-success">Calculate Goal</a>

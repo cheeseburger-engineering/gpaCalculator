@@ -59,6 +59,10 @@ li a.active {
   background-color: white;
 }
 
+.form-control{
+  text-align: left;
+}
+
 h4{
     font-family: serif;
     color: #377ba8;
@@ -80,8 +84,16 @@ h4{
     height: 125px;
     background-color: #eeeeee;
     padding: 2%;
-
 }
+
+#addNew{
+    padding-right: 5%;
+    padding-top: 0;
+    padding-bottom: 2%;
+    float: right;
+    clear: right;
+}
+
 #header{
   padding: 10px;
 }
