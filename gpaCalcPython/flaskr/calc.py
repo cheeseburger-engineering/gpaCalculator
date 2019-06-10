@@ -33,20 +33,31 @@ def viewClasses():
 	
 def getAvgGpa():
     db = get_db()
-    gradeSum = get_db().execute(
-        'SELECT SUM(grade*credits)'
+    grades = []
+    credits = []
+    grades += get_db().execute(
+        'SELECT grade'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
-    ).fetchone()[0]
+    ).fetchall()[0]
+    credits += get_db().execute(
+        'SELECT credits'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchall()[0]
     creditSum = get_db().execute(
         'SELECT SUM(credits)'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchone()[0]
-    if gradeSum:
-        avg = let2GPA(perc2let(round(gradeSum / creditSum, 2)))
+    weightedGPA = 0
+    for i in range(len(grades)):
+        weightedGPA += let2GPA(perc2let(grades[i]))*credits[i]
+    if creditSum:
+        avg = '{0:.2}'.format(weightedGPA / creditSum)
     else:
         avg = 0
     return avg
@@ -76,14 +87,14 @@ def getGoalInfo():
     return render_template('calc/goal.html')
 
 # Function to determine grade necessary to maintain GPA
-def getGoalGpa(goal, credit, courses):
+def getGoalGpa(goalCourse, courses):
     # Expected input is goal GPA (float), goalCourse (course object with attributes: letter grade (string) and credits (int)), and courses (list of course objects)
 	totGrade = 0
 	totCredits = 0
 	for course in courses:
 		totGrade += let2GPA(course.grade)
-		totCredits += credits
-	goalGrade = goal * (totCredits + goalCourse.credits) - totGrade
+		totCredits += course.credits
+	goalGrade = (totCredits + goalCourse.credits) - totGrade
 	return goalGrade
 
 @bp.route('/create', methods=('GET', 'POST'))

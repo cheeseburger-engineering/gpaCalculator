@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}My Classes and Grades{% endblock %}</h1>
-  {% if g.user %}
-      <h1>Greetings {{ g.user['username'] }}</h1>
-    <a class="action" href="{{ url_for('calc.create') }}">New</a>
-  {% endif %}
+    <h1>{% block title %}My Classes and Grades{% endblock %}</h1>
+    <h1>Greetings {{ g.user['username'] }}</h1>
 {% endblock %}
 
 {% block content %}
-
     {% if g.user %}
     <h1>Hello {{ g.user['username'] }}!</h1>
+    <a class="action" href="{{ url_for('calc.create') }}">New</a>
 {% endif %}
 <br>
 <br>
