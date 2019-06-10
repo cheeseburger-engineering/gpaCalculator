@@ -33,33 +33,22 @@ def viewClasses():
 	
 def getAvgGpa():
     db = get_db()
-    grades = []
-    credits = []
-    grades += get_db().execute(
-        'SELECT grade'
+    courses = get_db().execute(
+        'SELECT grade, credits'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
-    ).fetchall()[0]
-    credits += get_db().execute(
-        'SELECT credits'
-        ' FROM class p JOIN user u ON p.author_id = u.id'
-        ' WHERE u.id = ?',
-        (g.user['id'],)
-    ).fetchall()[0]
+    ).fetchall()
     creditSum = get_db().execute(
         'SELECT SUM(credits)'
         ' FROM class p JOIN user u ON p.author_id = u.id'
         ' WHERE u.id = ?',
         (g.user['id'],)
     ).fetchone()[0]
-    weightedGPA = 0
-    for i in range(len(grades)):
-        weightedGPA += let2GPA(perc2let(grades[i]))*credits[i]
-    if creditSum:
-        avg = '{0:.2}'.format(weightedGPA / creditSum)
-    else:
-        avg = 0
+    avg = 0
+    for course in courses:
+        avg += let2GPA(perc2let(course[0]))*course[1]
+    avg = '{0:.2f}'.format(avg / creditSum)
     return avg
 	
 @bp.route('/getGoalInfo')
@@ -177,28 +166,28 @@ def delete(id):
     return redirect(url_for('calc.viewClasses'))
 
 # Dictionary to convert letter grade to GPA
-SCORE_MAP = {'A' : 4.0,
-			 'a' : 4.0,
-			 'A-': 3.7,
-			 'a-': 3.7,
-			 'B+': 3.3,
-			 'b+': 3.3,
-			 'B' : 3.0,
-			 'b' : 3.0,
-			 'B-': 2.7,
-			 'b-': 2.7,
-			 'C+': 2.3,
-			 'c+': 2.3,
-			 'C' : 2.0,
-			 'c' : 2.0,
-			 'C-': 1.7,
-			 'c-': 1.7,
-			 'D+': 1.3,
-			 'd+': 1.3,
-			 'D' : 1.0,
-			 'd' : 1.0,
-			 'F' : 0.0,
-			 'f' : 0.0}
+SCORE_MAP = {'A' : 4.00,
+			 'a' : 4.00,
+			 'A-': 3.67,
+			 'a-': 3.67,
+			 'B+': 3.33,
+			 'b+': 3.33,
+			 'B' : 3.00,
+			 'b' : 3.00,
+			 'B-': 2.67,
+			 'b-': 2.67,
+			 'C+': 2.33,
+			 'c+': 2.33,
+			 'C' : 2.00,
+			 'c' : 2.00,
+			 'C-': 1.67,
+			 'c-': 1.67,
+			 'D+': 1.33,
+			 'd+': 1.33,
+			 'D' : 1.00,
+			 'd' : 1.00,
+			 'F' : 0.00,
+			 'f' : 0.00}
 
 # Function to convert percentage grade to letter
 def perc2let(grade):
