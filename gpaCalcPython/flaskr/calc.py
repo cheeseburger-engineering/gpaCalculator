@@ -48,7 +48,10 @@ def getAvgGpa():
     avg = 0
     for course in courses:
         avg += let2GPA(perc2let(course[0]))*course[1]
-    avg = '{0:.2f}'.format(avg / creditSum)
+    if creditSum:
+        avg = '{0:.2f}'.format(avg / creditSum)
+    else:
+        avg = 0
     return avg
 	
 @bp.route('/getGoalInfo')
@@ -66,25 +69,39 @@ def getGoalInfo():
         session['classname'] = request.form['classname']
         session['credits'] = request.form['credits']
         error = None
-        session['goal'] = getGoalGpa(getAvgGpa(), session['credits'], courses)
+        goal = getGoalGpa(session['credits'], courses)
 
         if error is not None:
             flash(error)
         else:
-            session['goal'] = getGoalGpa(getAvgGpa(), session['credits'], courses)
-            return redirect(url_for('calc.viewClasses'))
+            goal = getGoalGpa(session['credits'])
     return render_template('calc/goal.html')
 
 # Function to determine grade necessary to maintain GPA
-def getGoalGpa(goalCourse, courses):
-    # Expected input is goal GPA (float), goalCourse (course object with attributes: letter grade (string) and credits (int)), and courses (list of course objects)
-	totGrade = 0
-	totCredits = 0
-	for course in courses:
-		totGrade += let2GPA(course.grade)
-		totCredits += course.credits
-	goalGrade = (totCredits + goalCourse.credits) - totGrade
-	return goalGrade
+def getGoalGpa(credits):
+    # Expected input is credits for the goal course
+    currGPA = getAvgGpa()
+    
+    courses = get_db().execute(
+        'SELECT grade, credits'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchall()
+    
+    creditSum = get_db().execute(
+        'SELECT SUM(credits)'
+        ' FROM class p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
+        (g.user['id'],)
+    ).fetchone()[0]
+    
+    for course in courses:
+        weightedGPA = let2GPA(perc2let(course[0]))*course[1]
+    goalGPA = (currGPA*creditSum - weightedGPA) / credits
+    goalGrade = gpa2perc(goalGpa)
+    
+    return goalGrade
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -189,6 +206,32 @@ SCORE_MAP = {'A' : 4.00,
 			 'F' : 0.00,
 			 'f' : 0.00}
 
+# Dictionary to convert GPA to minimum percentage grade             
+def gpa2perc(gpa):
+    # Expected input is gpa (float)
+	if grade > 3.67:
+		perc_grade = 93
+	elif grade > 3.33:
+		perc_grade = 90
+	elif grade > 3.00:
+		perc_grade = 87
+	elif grade > 2.67:
+		perc_grade = 83
+	elif grade > 2.33:
+		perc_grade = 80
+	elif grade > 2.00:
+		perc_grade = 77
+	elif grade > 1.67:
+		perc_grade = 73
+	elif grade > 1.33:
+		perc_grade = 70
+	elif grade > 1.00:
+		perc_grade = 67
+	else:
+		perc_grade = 65
+	
+	return perc_grade
+
 # Function to convert percentage grade to letter
 def perc2let(grade):
     # Expected input is grade (int/float)
@@ -220,7 +263,7 @@ def perc2let(grade):
 # Function to convert letter grade to GPA
 def let2GPA(letter):
     # Expected input is string representing letter grade
-	return SCORE_MAP[letter]
+	return SCORE_MAP[letter]   
 	
 # Function to calculate weighted GPA contribution for a course
 def weighGPA(course):
